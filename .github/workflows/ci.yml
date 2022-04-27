@@ -1,0 +1,11 @@
+---
+name: CI
+'on':
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker-workflow:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/docker-workflow.yml@feat/docker
