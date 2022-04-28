@@ -8,4 +8,4 @@ name: CI
 
 jobs:
   docker-workflow:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/docker-workflow.yml@feat/docker
+    uses: GrabAByte/github-devops-workflows/.github/workflows/docker-workflow.yml@main
