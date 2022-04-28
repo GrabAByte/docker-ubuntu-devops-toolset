@@ -1,4 +1,5 @@
 ---
+
 name: CI
 'on':
   pull_request:
@@ -7,5 +8,7 @@ name: CI
       - main
 
 jobs:
-  docker-workflow:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/docker-workflow.yml@main
+  docker-lint:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerLint.yml@main
+  docker-build:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerBuild.yml@main
