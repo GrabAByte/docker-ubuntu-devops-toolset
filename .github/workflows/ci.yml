@@ -1,5 +1,4 @@
 ---
-
 name: CI
 'on':
   pull_request:
@@ -8,7 +7,12 @@ name: CI
       - main
 
 jobs:
+  write-metadata:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/writeMetadata.yml@feat/shareVars
+    with:
+      metadataFile: 'metadata.json'
+      metadataPath: .
   docker-lint:
     uses: GrabAByte/github-devops-workflows/.github/workflows/dockerLint.yml@main
   docker-build:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerBuild.yml@main
+    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerBuild.yml@feat/dockerBuild
