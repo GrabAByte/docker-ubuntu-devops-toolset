@@ -7,12 +7,20 @@ name: CI
       - main
 
 jobs:
-  write-metadata:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/writeMetadata.yml@feat/shareVars
+  gather-metadata:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/writeMetadata.yml@main
     with:
       metadataFile: 'metadata.json'
       metadataPath: .
   docker-lint:
     uses: GrabAByte/github-devops-workflows/.github/workflows/dockerLint.yml@main
+    with:
+      dockerfilePath: 'docker/Dockerfile'
   docker-build:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerBuild.yml@feat/dockerBuild
+    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerBuild.yml@main
+    with:
+      dockerfilePath: 'docker/Dockerfile'
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    needs: [gather-metadata, docker-lint]
