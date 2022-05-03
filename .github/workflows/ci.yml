@@ -7,20 +7,29 @@ name: CI
       - main
 
 jobs:
-  gather-metadata:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/writeMetadata.yml@main
+  get-version:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/getVersion.yml@0.0.3
     with:
       metadataFile: 'metadata.json'
       metadataPath: .
   docker-lint:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerLint.yml@main
+    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerLint.yml@0.0.3
     with:
       dockerfilePath: 'docker/Dockerfile'
-  docker-build:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerBuild.yml@main
+    needs: get-version
+  docker-build-publish:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/dockerBuildPublish.yml@0.0.3
     with:
       dockerfilePath: 'docker/Dockerfile'
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-    needs: [gather-metadata, docker-lint]
+    needs: docker-lint
+  update-version:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.0.3
+    with:
+      gitUsername: 'grababyte'
+      gitEmail: 'grababyte@github.com'
+      metadataFile: 'metadata.json'
+      metadataPath: .
+    needs: docker-build-publish
