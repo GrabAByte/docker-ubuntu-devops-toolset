@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.3.0] - (05-05-2022)
+feat: (19bccd7) Add python3-pip (#6)
+
 ## [0.2.0] - (04-05-2022)
 feat: (b261519) Add base docker Utilities (#5)
 
