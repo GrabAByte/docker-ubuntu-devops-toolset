@@ -21,6 +21,3 @@ RUN \
     zip=3.0-12build2 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
-  pip3 install --no-cache-dir ansible==5.7.1 && \
-  mkdir /etc/ansible && \
-  printf "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
