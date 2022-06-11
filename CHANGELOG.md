@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.3.1] - (11-06-2022)
+fix: (f55ef73) Erroneous double ampersand at the end of the Dockerfile
+
 ## [0.3.0] - (05-05-2022)
 feat: (19bccd7) Add python3-pip (#6)
 
