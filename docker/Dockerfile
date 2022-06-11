@@ -6,7 +6,7 @@ RUN \
   apt-get update -y && \
   apt-get install --no-install-recommends -y \
     gcc=4:11.2.0-1ubuntu1 \
-    curl=7.81.0-1ubuntu1.1 \
+    curl=7.81.0-1ubuntu1.2 \
     git=1:2.34.1-1ubuntu1.2 \
     jq=1.6-2.1ubuntu3 \
     openssh-server=1:8.9p1-3 \
@@ -20,4 +20,4 @@ RUN \
     unzip=6.0-26ubuntu3 \
     zip=3.0-12build2 && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/* && \
+  rm -rf /var/lib/apt/lists/*
