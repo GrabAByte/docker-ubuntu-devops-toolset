@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.4.0] - (13-02-2023)
+feat: (e8d7d7d) Bump Packages and ubuntu base (#8)
+
 ## [0.3.1] - (11-06-2022)
 fix: (f55ef73) Erroneous double ampersand at the end of the Dockerfile
 
