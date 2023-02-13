@@ -1,23 +1,28 @@
-FROM docker.io/ubuntu:22.04
+FROM docker.io/ubuntu:23.04
 
 LABEL devops.grababyte.image.authors="GrabAByte"
+
+ENV USER ubuntu
 
 RUN \
   apt-get update -y && \
   apt-get install --no-install-recommends -y \
-    gcc=4:11.2.0-1ubuntu1 \
-    curl=7.81.0-1ubuntu1.2 \
-    git=1:2.34.1-1ubuntu1.2 \
+    curl=7.87.0-1ubuntu1 \
+    gcc=4:12.2.0-1ubuntu1 \
+    git=1:2.38.1-1ubuntu2 \
     jq=1.6-2.1ubuntu3 \
-    openssh-server=1:8.9p1-3 \
-    python3-dev=3.10.4-0ubuntu2 \
-    python3-setuptools=59.6.0-1.2 \
-    python3-pip=22.0.2+dfsg-1 \
-    python3-yaml=5.4.1-1ubuntu1 \
+    openssh-server=1:9.0p1-1ubuntu8 \
+    python3-dev=3.11.1-3 \
+    python3-setuptools=65.5.0-1 \
+    python3-pip=22.3.1+dfsg-2 \
+    python3-yaml=6.0-3 \
     sshpass=1.09-1 \
-    sudo=1.9.9-1ubuntu2 \
-    tar=1.34+dfsg-1build3 \
-    unzip=6.0-26ubuntu3 \
+    sudo=1.9.11p3-1ubuntu3 \
+    tar=1.34+dfsg-1.1 \
+    unzip=6.0-27ubuntu1 \
     zip=3.0-12build2 && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/* && \
+  echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER ubuntu
