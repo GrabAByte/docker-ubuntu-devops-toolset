@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.4.1] - (13-02-2023)
+fix: (b601038) Dynamic user lookup (#9)
+
 ## [0.4.0] - (13-02-2023)
 feat: (e8d7d7d) Bump Packages and ubuntu base (#8)
 
