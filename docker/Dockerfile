@@ -25,4 +25,4 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-USER ubuntu
+USER "${USER}"
