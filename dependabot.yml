@@ -1,0 +1,15 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directory: "docker"
+    schedule:
+      # "Easy (Like sunday morning)"
+      interval: "weekly"
+      day: "sunday"
+      time: "10:00"
+      timezone: "Europe/London"
+    target-branch: "main"
+    commit-message:
+      prefix: "fix:"
+    open-pull-requests-limit: 5
