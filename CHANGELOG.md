@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.0] - (21-02-2023)
+feat: (c8d4fd3) Add programming languages into base for package management (#10)
+
 ## [0.4.1] - (13-02-2023)
 fix: (b601038) Dynamic user lookup (#9)
 
