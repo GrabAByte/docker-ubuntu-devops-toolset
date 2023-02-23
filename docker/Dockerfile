@@ -1,37 +1,41 @@
-FROM docker.io/ubuntu:23.04
+FROM grababyte/ubuntu-base:0.5.1
 
 LABEL devops.grababyte.image.authors="GrabAByte"
 
-ARG USER=ubuntu23
-ENV ID=1001
+ENV ANSIBLE_VERSION 2.14.2
+ENV CONTAINERD_VERSION 1.6.18-1
+ENV ISTIO_VERSION 1.17.0
+ENV K8S_VERSION 1.26.1-00
+ENV PACKER_VERSION 1.8.6-1
+ENV TERRAFORM_VERSION 1.3.9
+ENV USER ubuntu23
+ENV PATH "${PATH}:/istio-${ISTIO_VERSION}/bin"
 
+USER root
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
+  curl -s https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
+  curl -s https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
+  echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" > /etc/apt/sources.list.d/docker-ce.list && \
+  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/gcloud.list && \
+  echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com focal main" >/etc/apt/sources.list.d/hasicorp.list && \
+  gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint && \
   apt-get update -y && \
   apt-get install --no-install-recommends -y \
-    curl=7.87.0-1ubuntu1 \
-    gcc=4:12.2.0-1ubuntu1 \
-    git=1:2.38.1-1ubuntu2 \
-    jq=1.6-2.1ubuntu3 \
-    nodejs=18.13.0+dfsg1-1ubuntu1 \
-    npm=9.2.0~ds1-1 \
-    openssh-server=1:9.0p1-1ubuntu8 \
-    python3-dev=3.11.1-3 \
-    python3-setuptools=65.5.0-1 \
-    python3-pip=22.3.1+dfsg-2 \
-    python3-yaml=6.0-3 \
-    ruby=1:3.0+3.1ubuntu1 \
-    sshpass=1.09-1 \
-    sudo=1.9.11p3-1ubuntu3 \
-    tar=1.34+dfsg-1.1 \
-    unzip=6.0-27ubuntu1 \
-    zip=3.0-12build2 && \
+    containerd.io=${CONTAINERD_VERSION} \
+    kubectl=${K8S_VERSION} \
+    packer=${PACKER_VERSION} \
+    terraform=${TERRAFORM_VERSION} \
+    yq=3.1.0-3 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   pip3 install --no-cache-dir --upgrade \
-    pip==23.0.1 \
-    setuptools==67.3.3 && \
-  groupadd -g "${ID}" "${USER}" && \
-  useradd -l -m -u "${ID}" -g "${USER}" "${USER}" && \
-  echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    ansible-core==${ANSIBLE_VERSION} \
+    awscliv2==2.2.0 \
+    azure-cli==2.45.0 \
+    yamllint==1.29.0 && \
+  curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} TARGET_ARCH=amd64 sh -
 
 USER "${USER}"
