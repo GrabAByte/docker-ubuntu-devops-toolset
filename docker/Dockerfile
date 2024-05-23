@@ -1,15 +1,14 @@
-FROM grababyte/ubuntu-base:0.5.2
+FROM grababyte/ubuntu-base:0.7.0
 
 LABEL devops.grababyte.image.authors="GrabAByte"
 
 ENV ARCH amd64
-ENV ANSIBLE_VERSION 2.14.2
-ENV CONTAINERD_VERSION 1.6.18-1
-ENV ISTIO_VERSION 1.17.0
-ENV K8S_VERSION 1.26.1-00
-ENV PACKER_VERSION 1.8.6-1
-ENV TERRAFORM_VERSION 1.3.9
-ENV USER ubuntu23
+ENV CONTAINERD_VERSION 1.6.31-1
+ENV ISTIO_VERSION 1.22.0
+ENV K8S_VERSION 1:477.0.0-0
+ENV PACKER_VERSION 1.10.3-1
+ENV TERRAFORM_VERSION 1.8.4-1
+ENV USER ubuntu24
 ENV PATH "${PATH}:/istio-${ISTIO_VERSION}/bin"
 
 USER root
@@ -25,20 +24,13 @@ RUN \
   gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint && \
   apt-get update -y && \
   apt-get install --no-install-recommends -y \
-    containerd.io=${CONTAINERD_VERSION} \
-    kubectl=${K8S_VERSION} \
-    packer=${PACKER_VERSION} \
-    terraform=${TERRAFORM_VERSION} \
+    containerd.io="${CONTAINERD_VERSION}" \
+    kubectl="${K8S_VERSION}" \
+    packer="${PACKER_VERSION}" \
+    terraform="${TERRAFORM_VERSION}" \
     yq=3.1.0-3 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} TARGET_ARCH=${ARCH} sh -
 
 USER "${USER}"
-
-RUN  \
-    pip3 install --no-cache-dir --upgrade \
-      ansible-core==${ANSIBLE_VERSION} \
-      awscliv2==2.2.0 \
-      azure-cli==2.45.0 \
-      yamllint==1.29.0
