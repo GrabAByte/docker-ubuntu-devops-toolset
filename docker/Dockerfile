@@ -31,6 +31,6 @@ RUN \
     yq=3.1.0-3 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
-  curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} TARGET_ARCH=${ARCH} sh -
+  curl -LO https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} TARGET_ARCH=${ARCH} sh -
 
 USER "${USER}"
