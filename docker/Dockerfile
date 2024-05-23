@@ -1,15 +1,14 @@
-FROM grababyte/ubuntu-base:0.7.0
+FROM grababyte/ubuntu-base:0.7.1
 
 LABEL devops.grababyte.image.authors="GrabAByte"
 
 ENV ARCH amd64
+ENV ANSIBLE_VERSION 2.16.7-1ppa~noble
 ENV CONTAINERD_VERSION 1.6.31-1
-ENV ISTIO_VERSION 1.22.0
 ENV K8S_VERSION 1:477.0.0-0
 ENV PACKER_VERSION 1.10.3-1
 ENV TERRAFORM_VERSION 1.8.4-1
 ENV USER ubuntu24
-ENV PATH "${PATH}:/istio-${ISTIO_VERSION}/bin"
 
 USER root
 
@@ -22,15 +21,16 @@ RUN \
   echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/gcloud.list && \
   echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com focal main" >/etc/apt/sources.list.d/hasicorp.list && \
   gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint && \
+  apt-add-repository ppa:ansible/ansible && \
   apt-get update -y && \
   apt-get install --no-install-recommends -y \
+    ansible-core="${ANSIBLE_VERSION}" \
     containerd.io="${CONTAINERD_VERSION}" \
     kubectl="${K8S_VERSION}" \
     packer="${PACKER_VERSION}" \
     terraform="${TERRAFORM_VERSION}" \
     yq=3.1.0-3 && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/* && \
-  curl -LO https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} TARGET_ARCH=${ARCH} sh -
+  rm -rf /var/lib/apt/lists/*
 
 USER "${USER}"
