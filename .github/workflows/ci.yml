@@ -30,7 +30,7 @@ jobs:
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-    needs: [docker-lint,sonar-scan,docker-scan]
+    needs: [docker-lint,sonar-scan]
   update-version:
     uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.6.4
     with:
