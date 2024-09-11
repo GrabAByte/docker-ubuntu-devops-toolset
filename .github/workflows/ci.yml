@@ -23,6 +23,7 @@ jobs:
       WORKFLOW_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     needs: get-version
+  ## TODO: Re-Add Scan Stage
   docker-build-publish:
     uses: GrabAByte/github-devops-workflows/.github/workflows/dockerBuildPublish.yml@0.6.4
     with:
