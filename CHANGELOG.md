@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.4.1] - (13-09-2024)
+fix: (c9f72f2) Add MIT License (#11)
+
 ## [0.4.0] - (04-06-2024)
 feat: (2636585) Add helm installation to image
 
@@ -17,6 +20,9 @@ fix: (3c1be6e) extra directories in code repository (#4)
 
 ## [0.1.0] - (23-02-2023)
 feat: (b93eeb5) Add Changelog (#3)
+
+## [0.4.1] - (13-09-2024)
+fix: (c9f72f2) Add MIT License (#11)
 
 ## [0.4.0] - (04-06-2024)
 feat: (2636585) Add helm installation to image
