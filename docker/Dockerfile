@@ -1,4 +1,4 @@
-FROM grababyte/ubuntu-base:0.7.1
+FROM grababyte/ubuntu-base:0.7.2
 
 LABEL devops.grababyte.image.authors="GrabAByte"
 
