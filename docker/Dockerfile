@@ -3,12 +3,11 @@ FROM grababyte/ubuntu-base:0.8.0
 LABEL devops.grababyte.image.authors="GrabAByte"
 
 ENV ARCH=amd64
-ENV ANSIBLE_VERSION=2.16.11-1ppa~noble
-ENV CONTAINERD_VERSION=1.7.22-1
-ENV K8S_VERSION=1:492.0.0-0
-ENV HELM_VERSION=3.15.4-1
-ENV PACKER_VERSION=1.11.2-1
-ENV TERRAFORM_VERSION=1.9.5-1
+ENV CONTAINERD_VERSION=1.7.27-1
+ENV K8S_VERSION=1:519.0.0-0
+ENV HELM_VERSION=3.17.2-1
+ENV PACKER_VERSION=1.12.0-1
+ENV TERRAFORM_VERSION=1.11.4-1
 ENV USER=ubuntu24
 
 USER root
@@ -26,12 +25,11 @@ RUN \
   echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com focal main" >/etc/apt/sources.list.d/hasicorp.list && \
   apt-get update -y && \
   apt-get install --no-install-recommends -y \
-    containerd.io \
-    kubectl \
-    helm \
-    packer \
-    terraform \
-    yq && \
+    containerd.io="${CONTAINERD_VERSION}" \
+    kubectl="${K8S_VERSION}" \
+    helm="${HELM_VERSION}" \
+    packer="${PACKER_VERSION}" \
+    terraform="${TERRAFORM_VERSION}" && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
