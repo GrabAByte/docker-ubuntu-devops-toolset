@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.0] - (23-04-2025)
+feat: (adb9e77) bump to ubuntu base v0.8 (#13)
+
 ## [0.4.2] - (16-09-2024)
 chore: (2575edc) bump base image version of ubuntu to 0.7.2
 
@@ -23,6 +26,9 @@ fix: (3c1be6e) extra directories in code repository (#4)
 
 ## [0.1.0] - (23-02-2023)
 feat: (b93eeb5) Add Changelog (#3)
+
+## [0.5.0] - (23-04-2025)
+feat: (adb9e77) bump to ubuntu base v0.8 (#13)
 
 ## [0.4.2] - (16-09-2024)
 chore: (2575edc) bump base image version of ubuntu to 0.7.2
